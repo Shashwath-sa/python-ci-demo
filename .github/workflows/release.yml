@@ -2,8 +2,6 @@ name: Create Release
 
 on:
   push:
-    branches:
-      - main
     tags:
       - "v*"
 
@@ -11,14 +9,12 @@ jobs:
   release:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write   # 🔥 VERY IMPORTANT
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Create Release
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
-        with:
-          tag_name: ${{ github.ref_name }}
-          body: "Automated release"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
